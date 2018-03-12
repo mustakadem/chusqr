@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Chusqer;
 use App\Hashtag;
 use App\Http\Requests\CreateChusqerRequest;
+use App\Like;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -165,6 +167,24 @@ class ChusqersController extends Controller
         return view('home', [
             'chusqers' => $chusqers,
         ]);
+    }
+
+    public function like(User $user,Chusqer $chusqer){
+
+
+
+        $totalLike = $user->likes()->where('chusqer_id',$chusqer->id)->count();
+
+
+        if ($totalLike == 0){
+             $user->likes()->create(['chusqer_id' => $chusqer->id ]);
+
+        }elseif ($totalLike >= 1){
+            $user->likes()->where('chusqer_id',$chusqer->id)->delete();
+            return redirect()->back()->with('dislike','¡Dislike!');
+        }
+
+        return redirect()->back()->with('like','¡Like!');
     }
 
 

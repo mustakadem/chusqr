@@ -37,6 +37,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Se recuperan los like del usuario
+     * @return \Illuminate\Database\Query\Builder|static
+     */
+    public function likes()
+    {
+        return $this->hasMany(Like::class)->latest();
+    }
+    /**
      * Quién sigue un usuario.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

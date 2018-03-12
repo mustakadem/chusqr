@@ -35,6 +35,14 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/{user}/dms', 'UsersController@sendPrivateMessage');
 
 
+    /**
+     * Rutas del Examen
+     */
+    Route::get('/{user}/like/{chusqer}', 'ChusqersController@like')->name('chusqer.like');
+    Route::get('/likes/chusqer/{chusqer}','UsersController@usersLike')->name('users.like');
+
+    ////////////////
+
     Route::get('/profile/edit', 'UsersController@profile')->name('profile');
     Route::get('/profile/account', 'UsersController@edit')->name('profile.account');
     Route::patch('/profile/account', 'UsersController@update');

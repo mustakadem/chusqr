@@ -66,6 +66,9 @@ class UsersController extends Controller
      */
     public function show($user)
     {
+
+
+
         $user = $this->findUserByUsername($user);
         $followers = $user->follows->pluck('id')->toArray();
 
@@ -247,6 +250,37 @@ class UsersController extends Controller
     {
         return view('users.edit');
     }
+
+    public function usersLike(Chusqer $chusqer){
+
+        $likes = $chusqer->likes()->get();
+
+        $usersCollection = array();
+
+        foreach ($likes as $like){
+
+            array_push($usersCollection,$like->user()->get());
+        }
+
+        $usersClass = array();
+
+        foreach ($usersCollection as $user) {
+            foreach ($user as $item) {
+               array_push($usersClass,$item);
+            }
+        }
+
+
+
+
+        return  view('users.likes',[
+            'usersLikes' => $usersClass
+        ]);
+    }
+
+
+
+
 }
 
 

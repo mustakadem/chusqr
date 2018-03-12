@@ -49,4 +49,8 @@ class Chusqer extends Model
         return $this->toArray();
     }
 
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
 }
